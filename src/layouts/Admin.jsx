@@ -142,7 +142,7 @@ class Admin extends Component {
       default:
         break;
     }
-    _notificationSystem.addNotification({
+   /* _notificationSystem.addNotification({
       title: <span data-notify="icon" className="pe-7s-gift" />,
       message: (
         <div>
@@ -153,7 +153,7 @@ class Admin extends Component {
       level: level,
       position: "tr",
       autoDismiss: 15
-    });
+    }); */
   }
   componentDidUpdate(e) {
     if (
@@ -172,7 +172,6 @@ class Admin extends Component {
   render() {
     return (
       <div className="wrapper">
-        <NotificationSystem ref="notificationSystem" style={style} />
         <Sidebar {...this.props} routes={routes} image={this.state.image}
         color={this.state.color}
         hasImage={this.state.hasImage}/>
