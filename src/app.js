@@ -12,7 +12,7 @@ import awsconfig from './aws-exports';
 import AdminLayout from "layouts/Admin.jsx";
 Amplify.configure(awsconfig);
 
-export default function App() {
+function MainApp() {
     return (
         <BrowserRouter>
             <Switch>
@@ -34,5 +34,5 @@ export default function App() {
     )
 }*/
 
-//export default withAuthenticator(MainApp, true)
+export default withAuthenticator(MainApp, true)
 
