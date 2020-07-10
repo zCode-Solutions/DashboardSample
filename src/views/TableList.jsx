@@ -15,85 +15,88 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React, { Component } from "react";
-import { Grid, Row, Col, Table } from "react-bootstrap";
 
-import Card from "components/Card/Card.jsx";
-import { thArray, tdArray } from "variables/Variables.jsx";
+import React, { Component } from 'react';
+import BootstrapTable from 'react-bootstrap-table-next';
+import axios from 'axios';
+import filterFactory, { textFilter } from 'react-bootstrap-table2-filter';
+import paginationFactory from 'react-bootstrap-table2-paginator';
 
-class TableList extends Component {
-  render() {
-    return (
-      <div className="content">
-        <Grid fluid>
-          <Row>
-            <Col md={12}>
-              <Card
-                title="Striped Table with Hover"
-                category="Here is a subtitle for this table"
-                ctTableFullWidth
-                ctTableResponsive
-                content={
-                  <Table striped hover>
-                    <thead>
-                      <tr>
-                        {thArray.map((prop, key) => {
-                          return <th key={key}>{prop}</th>;
-                        })}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {tdArray.map((prop, key) => {
-                        return (
-                          <tr key={key}>
-                            {prop.map((prop, key) => {
-                              return <td key={key}>{prop}</td>;
-                            })}
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </Table>
-                }
-              />
-            </Col>
+class Table extends Component {
+	state = {
+		theData: [],
 
-            <Col md={12}>
-              <Card
-                plain
-                title="Striped Table with Hover"
-                category="Here is a subtitle for this table"
-                ctTableFullWidth
-                ctTableResponsive
-                content={
-                  <Table hover>
-                    <thead>
-                      <tr>
-                        {thArray.map((prop, key) => {
-                          return <th key={key}>{prop}</th>;
-                        })}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {tdArray.map((prop, key) => {
-                        return (
-                          <tr key={key}>
-                            {prop.map((prop, key) => {
-                              return <td key={key}>{prop}</td>;
-                            })}
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </Table>
-                }
-              />
-            </Col>
-          </Row>
-        </Grid>
-      </div>
-    );
-  }
+		columns: [
+			{
+				dataField: 'id',
+				text: 'id',
+				sort: true
+			},
+
+			{
+				dataField: 'quantity',
+				text: 'quantity',
+				sort: true,
+				filter: textFilter()
+
+			},
+			{
+				dataField: 'itemDesc',
+				text: 'itemDesc',
+				sort: true,
+				filter: textFilter()
+
+			},
+
+			{
+				dataField: 'SalesTotal',
+				text: 'SalesTotal',
+				sort: true,
+
+				filter: textFilter()
+			},
+
+			{
+				dataField: 'Department',
+				text: 'Department',
+				sort: true,
+				filter: textFilter()
+
+			}
+		]
+	};
+
+	componentDidMount() {
+		axios.get('http://localhost:3000/transaction')
+			.then((response) => {
+			console.log(response.data);
+
+			this.setState({
+				theData: response.data.data
+			});
+		});
+	}
+
+	render() {
+		return (
+			<div className="container">
+				<div class="row" className="hdr" />
+
+				<div style={{ marginTop: 20 }}>
+					<BootstrapTable
+						striped
+						hover
+						keyField="id"
+						data={this.state.theData}
+						columns={this.state.columns}
+						filter={filterFactory()}
+						pagination={paginationFactory()}
+					/>
+				</div>
+			</div>
+		);
+	}
 }
 
-export default TableList;
+export default Table;
+
