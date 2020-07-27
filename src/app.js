@@ -1,26 +1,30 @@
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
-import React from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "./assets/css/animate.min.css";
-import "./assets/sass/light-bootstrap-dashboard-react.scss?v=1.3.0";
-import "./assets/css/demo.css";
-import "./assets/css/pe-icon-7-stroke.css";
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './assets/css/animate.min.css';
+import './assets/sass/light-bootstrap-dashboard-react.scss?v=1.3.0';
+import './assets/css/demo.css';
+import './assets/css/pe-icon-7-stroke.css';
 import Amplify from 'aws-amplify';
-import { AmplifyAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
-import { withAuthenticator } from "aws-amplify-react";
+import {
+  AmplifyAuthenticator,
+  AmplifySignOut,
+  withAuthenticator,
+} from '@aws-amplify/ui-react';
+//import { withAuthenticator } from "aws-amplify-react";
 import awsconfig from './aws-exports';
-import AdminLayout from "layouts/Admin.jsx";
+import AdminLayout from 'layouts/Admin.jsx';
 Amplify.configure(awsconfig);
 
 function MainApp() {
-    return (
-        <BrowserRouter>
-            <Switch>
-                <Route path="/admin" render={props => <AdminLayout {...props} />} />
-                <Redirect from="/" to="/admin/dashboard" />
-            </Switch>
-        </BrowserRouter>
-    )
+  return (
+    <BrowserRouter>
+      <Switch>
+        <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
+        <Redirect from="/" to="/admin/dashboard" />
+      </Switch>
+    </BrowserRouter>
+  );
 }
 
 /*export default function App() {
@@ -34,5 +38,4 @@ function MainApp() {
     )
 }*/
 
-export default withAuthenticator(MainApp, true)
-
+export default withAuthenticator(MainApp, true);
