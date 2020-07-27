@@ -15,33 +15,33 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
+import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom';
 
-import AdminNavbarLinks from "../Navbars/AdminNavbarLinks.jsx";
-
-import logo from "assets/img/reactlogo.png";
+import AdminNavbarLinks from '../Navbars/AdminNavbarLinks.jsx';
+import SignOut from '../SignOut/SignOut.jsx';
+import logo from 'assets/img/reactlogo.png';
 
 class Sidebar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      width: window.innerWidth
+      width: window.innerWidth,
     };
   }
   activeRoute(routeName) {
-    return this.props.location.pathname.indexOf(routeName) > -1 ? "active" : "";
+    return this.props.location.pathname.indexOf(routeName) > -1 ? 'active' : '';
   }
   updateDimensions() {
     this.setState({ width: window.innerWidth });
   }
   componentDidMount() {
     this.updateDimensions();
-    window.addEventListener("resize", this.updateDimensions.bind(this));
+    window.addEventListener('resize', this.updateDimensions.bind(this));
   }
   render() {
     const sidebarBackground = {
-      backgroundImage: "url(" + this.props.image + ")"
+      backgroundImage: 'url(' + this.props.image + ')',
     };
     return (
       <div
@@ -50,24 +50,16 @@ class Sidebar extends Component {
         data-color={this.props.color}
         data-image={this.props.image}
       >
-          {this.props.hasImage ? (
-            <div className="sidebar-background" style={sidebarBackground} />
-          ) : (
-            null
-          )}
+        {this.props.hasImage ? (
+          <div className="sidebar-background" style={sidebarBackground} />
+        ) : null}
         <div className="logo">
-          <a
-            href=" "
-            className="simple-text logo-mini"
-          >
+          <a href=" " className="simple-text logo-mini">
             <div className="logo-img">
               <img src={logo} alt="logo_image" />
             </div>
           </a>
-          <a
-            href=" "
-            className="simple-text logo-normal"
-          >
+          <a href=" " className="simple-text logo-normal">
             zCode Solutions
           </a>
         </div>
@@ -80,7 +72,7 @@ class Sidebar extends Component {
                   <li
                     className={
                       prop.upgrade
-                        ? "active active-pro"
+                        ? 'active active-pro'
                         : this.activeRoute(prop.layout + prop.path)
                     }
                     key={key}
@@ -98,6 +90,7 @@ class Sidebar extends Component {
               return null;
             })}
           </ul>
+          <SignOut />
         </div>
       </div>
     );
